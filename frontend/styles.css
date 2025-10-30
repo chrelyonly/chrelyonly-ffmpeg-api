@@ -1,0 +1,160 @@
+/* 自定义样式补充 */
+
+/* 文件上传按钮美化 */
+input[type="file"] {
+    position: relative;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+    display: none;
+}
+
+input[type="file"]::before {
+    content: "选择文件";
+    display: inline-block;
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+    outline: none;
+    white-space: nowrap;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: #374151;
+    transition: all 0.2s ease;
+    margin-right: 0.5rem;
+}
+
+input[type="file"]:hover::before {
+    border-color: #9ca3af;
+    background: #e5e7eb;
+}
+
+input[type="file"]::after {
+    content: attr(data-filename);
+    display: inline-block;
+    color: #1f2937;
+    font-size: 0.875rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+    vertical-align: middle;
+}
+
+/* 增强表单元素样式 */
+select, input[type="number"] {
+    transition: all 0.2s ease;
+}
+
+select:focus, input[type="number"]:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    outline: none;
+}
+
+/* 按钮悬停效果增强 */
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* 加载动画 */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+/* 进度条动画 */
+#progress-bar {
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 结果显示区域样式增强 */
+#image-result, #gif-result, #video-result {
+    transition: all 0.2s ease;
+    border: 2px dashed transparent;
+}
+
+#image-result:hover, #gif-result:hover, #video-result:hover {
+    border-color: #e5e7eb;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .grid-cols-1\/2 {
+        grid-template-columns: 1fr;
+    }
+    
+    .nav-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .nav-tabs button {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* 工具提示 */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: #1e293b;
+    color: #fff;
+    text-align: center;
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.875rem;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* 代码高亮 */
+pre {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    overflow-x: auto;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+code {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    background-color: #f3f4f6;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
