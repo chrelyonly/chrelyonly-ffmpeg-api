@@ -32,7 +32,7 @@ async function saveBase64Image(base64, filePath) {
 function runExecCmd(args) {
     return new Promise((resolve, reject) => {
         console.log(`▶ 执行合成命令: ${args.join(' ')}`);
-        execFile('./ffmpeg', args, (err, stdout, stderr) => {
+        execFile('./ffmpeg', args, { timeout: 15000 },(err, stdout, stderr) => {
             if (stdout) console.log("📄 stdout:", stdout.trim());
             if (stderr) console.warn("⚠ stderr:", stderr.trim());
             if (err) {
@@ -92,7 +92,7 @@ setInterval(() => {
 // -------------------------
 // 中间件
 // -------------------------
-app.use(express.json({ limit: '20mb' }));
+app.use(express.json({ limit: '10mb' }));
 
 // ======================================================================
 // ======================================================================
@@ -121,7 +121,7 @@ app.post('/ffmpeg/generate', async (req, res) => {
         // -------------------------
         // 1) 创建临时目录
         // -------------------------
-        const timeDir = path.join(TEMP_ROOT, getCurrentTimeDir());
+        const timeDir = path.join(TEMP_ROOT, getCurrentTimeDir() + '_' + uuidv4());
         await fsPromises.mkdir(timeDir, { recursive: true });
         console.log(`📂 临时文件目录: ${timeDir}`);
 
