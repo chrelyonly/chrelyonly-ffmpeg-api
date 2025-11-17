@@ -54,3 +54,5 @@ out/
 .vercel
 .nuxt
 .nitro
+
+ffmpeg.exe
