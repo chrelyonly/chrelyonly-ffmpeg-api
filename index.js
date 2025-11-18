@@ -181,16 +181,20 @@ app.post('/ffmpeg/generate', async (req, res) => {
         console.log("🎉 GIF 合成完成，返回 Base64");
 
         res.json({
-            ext: "gif",
-            color: safeColor,
-            similarity: sim,
-            blend: bl,
-            base64: `data:image/gif;base64,${buffer.toString("base64")}`
+            code: 200,
+            msg: "合成成功",
+            data: {
+                ext: "gif",
+                color: safeColor,
+                similarity: sim,
+                blend: bl,
+                base64: `data:image/gif;base64,${buffer.toString("base64")}`
+            }
         });
 
     } catch (err) {
         console.error("❌ 合并接口失败:", err);
-        res.status(500).json({ error: "服务器错误" });
+        res.status(500).json({code: 500, msg: "ffmpeg合成服务器错误" + err.message});
     }
 });
 
