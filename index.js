@@ -148,26 +148,44 @@ app.post('/ffmpeg/generate', async (req, res) => {
         // -------------------------
         // 3) Step1 生成调色板
         // -------------------------
+        // const paletteArgs = [
+        //     "-y",
+        //     "-i", srcFile,
+        //     "-vf", `colorkey=${safeColor}:${sim}:${bl},palettegen`,
+        //     paletteFile
+        // ];
+        // await runExecCmd(paletteArgs);
         const paletteArgs = [
             "-y",
             "-i", srcFile,
-            "-vf", `colorkey=${safeColor}:${sim}:${bl},palettegen`,
+            "-vf", `colorkey=${safeColor}:${sim}:${bl},format=rgba,palettegen=max_colors=255:reserve_transparent=1`,
             paletteFile
         ];
         await runExecCmd(paletteArgs);
 
+
         // -------------------------
         // 4) Step2 使用调色板生成最终 GIF
         // -------------------------
+        // const gifArgs = [
+        //     "-y",
+        //     "-i", srcFile,
+        //     "-i", paletteFile,
+        //     "-lavfi",
+        //     `colorkey=${safeColor}:${sim}:${bl} [ck]; [ck][1:v] paletteuse`,
+        //     outputGif
+        // ];
+        // await runExecCmd(gifArgs);
         const gifArgs = [
             "-y",
             "-i", srcFile,
             "-i", paletteFile,
             "-lavfi",
-            `colorkey=${safeColor}:${sim}:${bl} [ck]; [ck][1:v] paletteuse`,
+            `colorkey=${safeColor}:${sim}:${bl},format=rgba[a];[a][1:v]paletteuse=dither=bayer:bayer_scale=3`,
             outputGif
         ];
         await runExecCmd(gifArgs);
+
 
         // -------------------------
         // 5) 返回 Base64
