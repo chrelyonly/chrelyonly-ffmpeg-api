@@ -252,7 +252,7 @@ app.post('/ffmpeg/synthesis', async (req, res) => {
         const materialExt = material + '.png';
         const materialFile = path.join(timeDir, materialExt);
         // 读取素材图
-        await fsPromises.copyFile(path.join(IMAGE_ROOT, material), materialFile);
+        await fsPromises.copyFile(path.join(IMAGE_ROOT, materialExt), materialFile);
         console.log(`🧩 素材已复制到: ${materialFile}`);
         // -------------------------
         // 4) 将素材图合并到主图
