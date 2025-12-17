@@ -270,7 +270,7 @@ app.post('/ffmpeg/synthesis', async (req, res) => {
         // -------------------------
         // 5) 返回 Base64
         // -------------------------
-        if (!fs.existsSync(outputGif)) {
+        if (!fs.existsSync(outputFile)) {
             return res.status(500).json({ error: "合成失败：未生成 GIF 文件" });
         }
 
@@ -282,10 +282,6 @@ app.post('/ffmpeg/synthesis', async (req, res) => {
             code: 200,
             msg: "合成成功",
             data: {
-                ext: "gif",
-                color: safeColor,
-                similarity: sim,
-                blend: bl,
                 base64: `data:image/gif;base64,${buffer.toString("base64")}`
             }
         });
